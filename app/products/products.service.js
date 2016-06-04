@@ -3,14 +3,19 @@
  */
 'use strict';
 
-angular.module('shoppingcart.models.products',[])
-.service('ProductsService', function ($http){
+angular.module('shoppingcart.service.products',[])
+    .service('ProductsService', function ($http){
 
     var baseUrl = 'http://localhost:3000/';
-
-    var getAll = function(){
         var url = baseUrl + 'products';
+
+        var getAll = function(){
+
         return $http.get(url).then(transformResponse)
+    };
+
+    var createProduct = function(product){
+      return $http.post(url,product);
     };
 
 
@@ -24,6 +29,7 @@ angular.module('shoppingcart.models.products',[])
     }
 
     return {
-        getAll: getAll
+        getAll: getAll,
+        createProduct: createProduct
     };
 });

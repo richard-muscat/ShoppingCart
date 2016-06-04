@@ -1,0 +1,10 @@
+<div><
+    <form ng-submit="createProduct()" novalidate>
+        <div>
+            <label>Product Name</label>
+            <input type="text" class="form-control" ng-model="newProduct.name" placeholder="Enter product name">
+        </div>
+        <button type="submit">Create</button>
+        <button type="button" ng-click="cancelCreating()">Cancel</button>
+    </form>
+</div>
