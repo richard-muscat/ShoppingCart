@@ -18,6 +18,10 @@ angular.module('shoppingcart.service.products',[])
       return $http.post(url,product);
     };
 
+    var updateProduct = function(product){
+        return $http.put(url + '/' + product.id,product);
+    };
+
     var deleteProduct = function(product){
       return $http.delete(url + '/' + product.id);
     };
@@ -34,6 +38,7 @@ angular.module('shoppingcart.service.products',[])
     return {
         getAll: getAll,
         createProduct: createProduct,
-        deleteProduct: deleteProduct
+        deleteProduct: deleteProduct,
+        updateProduct: updateProduct
     };
 });
