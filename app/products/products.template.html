@@ -1,18 +1,22 @@
 <div>
     <ul ng-repeat="product in products"> 
         <div>
-            <span>{{product.name}}</span> 
+          {{product.name}}
 
         </div>
         <p>
-            <button type="button" ui-sref="shoppingcart.products.edit({product:product})">Edit</button>
-            <button type = button ng-click="deleteProduct(product)">Delete</button>
+            <button type="button" class="btn btn-link"ui-sref="shoppingcart.products.edit({product:product})">Edit</button>
+            <button type = "button"class="btn btn-link" ng-click="deleteProduct(product)">Delete</button>
         </p>
     </ul>
 
-        <button type="button" ui-sref="shoppingcart.products.create">
+<hr>
+<ui-view>
+    <div>
+        <button type="button" class="btn btn-link" ui-sref="shoppingcart.products.create">
             Add Product
         </button>
+    </div>
+</ui-view>
 </div>
-
 

@@ -3,7 +3,9 @@
  */
 
 angular.module('shoppingcart.products', [
-        'shoppingcart.service.products'
+        'shoppingcart.service.products',
+        'shoppingcart.products.create',
+        'shoppingcart.products.edit'
     ])
 
     .config(function ($stateProvider) {

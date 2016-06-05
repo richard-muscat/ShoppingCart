@@ -10,7 +10,7 @@ angular.module('shoppingcart.products.edit', [
             .state('shoppingcart.products.edit', {
                 url: '/edit',
                 views: {
-                    'products@': {
+                    '@shoppingcart.products': {
                         controller: 'EditProductController',
                         templateUrl: 'products/edit.product.template.html'
                     }

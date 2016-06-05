@@ -8,9 +8,9 @@ angular.module('shoppingcart.products.create', [
     .config(function ($stateProvider) {
         $stateProvider
             .state('shoppingcart.products.create', {
-                url: '/create',
+                url: '/products/create',
                 views: {
-                    'products@': {
+                    '@shoppingcart.products': {
                         controller: 'CreateProductController',
                         templateUrl: 'products/create.product.template.html'
                     }
