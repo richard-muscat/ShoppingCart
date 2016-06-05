@@ -18,7 +18,7 @@ angular.module('shoppingcart.products.create', [
             });
     })
 
-    .controller('CreateProductController',  function CreateProductController($scope, $state, ProductsService){
+    .controller('CreateProductController',  function CreateProductController($scope, $state,$stateParams, ProductsService){
 
         function resetForm(){
             $scope.newProduct ={
@@ -28,15 +28,15 @@ angular.module('shoppingcart.products.create', [
 
         function createProduct(){
             ProductsService.createProduct(new Product(null,$scope.newProduct.name))
-                .then(returnToProducts());
+                .then(returnToProducts(true));
         }
 
-        function returnToProducts() {
-            $state.go('shoppingcart.products');
+        function returnToProducts(updated) {
+            $state.go('shoppingcart.products',{updated: updated});
         }
 
         function cancelCreating() {
-            returnToProducts();
+            returnToProducts(false);
         }
 
         $scope.cancelCreating = cancelCreating;

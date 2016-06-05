@@ -15,17 +15,36 @@ angular.module('shoppingcart.products', [
                         controller: 'ProductsController',
                         templateUrl: 'products/products.template.html'
                     }
+                },
+                params: {
+                    updated: false
                 }
             });
     })
 
-    .controller('ProductsController',  function ProductsController($scope, ProductsService){
-        ProductsService.getAll()
-            .then(function (result) {
-                $scope.products = result;
+    .controller('ProductsController', function ProductsController($scope, ProductsService, $stateParams) {
 
-            });
+        getAll();
+        if ($stateParams.updated) {
+            getAll();
+            $stateParams.updated = false;
+        }
+
+        function getAll() {
+            ProductsService.getAll()
+                .then(function (result) {
+                    $scope.products = result;
+
+                });
+        }
+        function deleteProduct(product){
+            ProductsService.deleteProduct(product)
+            .then(getAll())
+        }
 
 
+
+        $scope.deleteProduct = deleteProduct;
+        $scope.getAll = getAll;
     })
 ;

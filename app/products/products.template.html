@@ -1,7 +1,14 @@
 <div>
-    <li  ng-repeat="product in products"> 
-        <span>{{product.name}}</span> 
-    </li>
+    <ul ng-repeat="product in products"> 
+        <div>
+            <span>{{product.name}}</span> 
+
+        </div>
+        <p>
+            <button>Edit</button>
+            <button type = button ng-click="deleteProduct(product)">Delete</button>
+        </p>
+    </ul>
 
         <button type="button" ui-sref="shoppingcart.products.create">
             Add Product
