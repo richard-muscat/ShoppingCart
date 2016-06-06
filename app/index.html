@@ -5,20 +5,29 @@
     <title>Shopping Cart</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="app.js"></script>
+    <!-- bower:css -->
+    <!-- endbower -->
 
-    <script src="modules/products.js"></script>
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+
+    <!-- endbower -->
+
+    <!-- inject:js -->
+    <script src="app.js"></script>
     <script src="modules/products.create.js"></script>
     <script src="modules/products.edit.js"></script>
-    <script src="products/products.service.js"></script>
+    <script src="modules/products.js"></script>
     <script src="products/product.js"></script>
+    <script src="products/products.service.js"></script>
 
+    <!-- endinject -->
 </head>
 <body>
 <div id=left></div>
 <div id="center" ui-view="products"></div>
-
+<div id="right"></div>
 </body>
 </html>

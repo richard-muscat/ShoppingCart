@@ -1,0 +1,39 @@
+{
+  "name": "shoppingcart",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-inject": "^4.1.0",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^2.0.1",
+    "gulp-less": "^3.1.0",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-plumber": "^1.1.0",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0",
+    "wiredep": "^4.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richard-muscat/ShoppingCart.git"
+  },
+  "keywords": [
+    "ecommerce"
+  ],
+  "bugs": {
+    "url": "https://github.com/richard-muscat/ShoppingCart/issues"
+  },
+  "homepage": "https://github.com/richard-muscat/ShoppingCart#readme",
+  "description": ""
+}

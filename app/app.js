@@ -9,17 +9,13 @@ angular.module('shoppingcart',[
     'shoppingcart.products.create',
     'shoppingcart.products.edit'
 
-
-
-
-
 ])
-    .config(function ($stateProvider, $urlRouterProvider) {
-        $stateProvider
+    .config(function($stateProvider, $urlRouterProvider) {
+      $stateProvider
             .state('shoppingcart', {
-                url: '',
-                abstract: true
+              url: '',
+              abstract: true
             })
         ;
-        $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/');
     });
