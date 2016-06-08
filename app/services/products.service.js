@@ -25,6 +25,7 @@ angular.module('shoppingcart.service.products',[])
       return $http.delete(url + '/' + product.id);
     };
 
+
       function transformResponse(response) {
         var products = [];
         angular.forEach(response.data,function(value, key) {

@@ -1,17 +1,18 @@
 /**
  * Created by Richard on 28/05/2016.
  */
-
-angular.module('shoppingcart.products', [
+"use strict";
+angular.module('shoppingcart.categories.products', [
         'shoppingcart.service.products',
-        'shoppingcart.products.create',
-        'shoppingcart.products.edit'
+        'shoppingcart.categories.products.create',
+        'shoppingcart.categories.products.edit'
     ])
 
     .config(function ($stateProvider) {
         $stateProvider
-            .state('shoppingcart.products', {
-                url: '/',
+            .state('shoppingcart.home.categories.products', {
+                //url: 'categories/:category',
+                url: '/prods',
                 views: {
                     'products@': {
                         controller: 'ProductsController',
@@ -25,14 +26,16 @@ angular.module('shoppingcart.products', [
     })
 
     .controller('ProductsController', function ProductsController($scope, ProductsService, $stateParams) {
-
+        console.log($stateParams.updated);
         getAll();
         if ($stateParams.updated) {
+            console.log("entered if statement");
             getAll();
             $stateParams.updated = false;
         }
 
         function getAll() {
+            console.log("called get all");
             ProductsService.getAll()
                 .then(function (result) {
                     $scope.products = result;
@@ -41,10 +44,8 @@ angular.module('shoppingcart.products', [
         }
         function deleteProduct(product){
             ProductsService.deleteProduct(product)
-            .then(getAll())
+            .then(getAll());
         }
-
-
 
         $scope.deleteProduct = deleteProduct;
         $scope.getAll = getAll;

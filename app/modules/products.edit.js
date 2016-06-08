@@ -1,14 +1,16 @@
 /**
  * Created by Richard on 05/06/2016.
  */
-angular.module('shoppingcart.products.edit', [
+
+//TODO Change to .admin
+angular.module('shoppingcart.categories.products.edit', [
         'shoppingcart.service.products'
     ])
 
     .config(function ($stateProvider) {
         $stateProvider
-            .state('shoppingcart.products.edit', {
-                url: '/edit',
+            .state('shoppingcart.categories.products.edit', {
+                url: '/products/edit',
                 views: {
                     '@shoppingcart.products': {
                         controller: 'EditProductController',

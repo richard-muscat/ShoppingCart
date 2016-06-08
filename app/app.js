@@ -5,9 +5,10 @@
 
 angular.module('shoppingcart',[
     'ui.router',
-    'shoppingcart.products',
-    'shoppingcart.products.create',
-    'shoppingcart.products.edit'
+    'shoppingcart.home',
+    'shoppingcart.categories.products',
+    'shoppingcart.categories.products.create',
+    'shoppingcart.categories.products.edit'
 
 ])
     .config(function($stateProvider, $urlRouterProvider) {

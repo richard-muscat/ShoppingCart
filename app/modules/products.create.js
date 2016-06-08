@@ -1,7 +1,8 @@
 /**
  * Created by Richard on 04/06/2016.
  */
-angular.module('shoppingcart.products.create', [
+//TODO change to .admin
+angular.module('shoppingcart.categories.products.create', [
         'shoppingcart.service.products'
     ])
 
