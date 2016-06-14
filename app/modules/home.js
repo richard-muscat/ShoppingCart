@@ -3,7 +3,7 @@
  */
 "use strict";
 angular.module('shoppingcart.home', [
-        'shoppingcart.categories.products',
+        'shoppingcart.categories.products'
     ])
     .config(function ($stateProvider) {
         $stateProvider
@@ -31,17 +31,32 @@ angular.module('shoppingcart.home', [
             });
     })
 
-    .controller('NavController', function NavController($scope,$stateParams) {
-        $stateParams.cartUser = new CartUser(1,"Richard","Muscat", "Richy", "petto",false);
-        if ($stateParams.cartUser !== null) {
-            $scope.loggedInStatus = "Hi, " + $stateParams.cartUser.firstname;
-            $scope.nav = "Log Out";
-        } else {
-            $scope.loggedInStatus = "";
-            $scope.nav = "Log In";
+    .controller('NavController', function NavController($scope,$state,$stateParams) {
+      //  $stateParams.cartUser = new CartUser(1,"Richard","Muscat", "Richy", "petto",false);
+
+        setNavBar();
+
+        function navAction() {
+            console.log("login link pressed");
+            if($stateParams.cartUser !== null) {
+              $stateParams.cartUser = null;
+                setNavBar();
+            } else {
+                $state.go('shoppingcart.login');
+            }
         }
 
+        function setNavBar(){
+            if ($stateParams.cartUser !== null) {
+                $scope.loggedInStatus = "Hi, " + $stateParams.cartUser.firstname;
+                $scope.nav = "Log Out";
+            } else {
+                $scope.loggedInStatus = "";
+                $scope.nav = "Log In";
+            }
+        }
 
+        $scope.navAction = navAction;
 
     })
 ;

@@ -6,6 +6,8 @@
 angular.module('shoppingcart',[
     'ui.router',
     'shoppingcart.home',
+    'shoppingcart.login',
+    'shoppingcart.register',
     'shoppingcart.categories.products',
     'shoppingcart.categories.products.create',
     'shoppingcart.categories.products.edit'
