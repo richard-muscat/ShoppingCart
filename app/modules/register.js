@@ -30,33 +30,47 @@ angular.module('shoppingcart.register', [
                         templateUrl: 'users/cartUser.template.html'
                     }
 
-                },
-                params: {
-                    cartUser: null
                 }
             });
     })
 
     .controller('RegisterController', function RegisterController($scope,$state, $stateParams, UsersService) {
 
-        function register()
-        {/*
-            UsersService.authenticate($scope.auth.username, $scope.auth.password)
+
+        function resetForm(){
+            $scope.newUser ={
+                firstname:'',
+                lastname:'',
+                username:'',
+                password:''
+            };
+        }
+
+        function register(){
+            UsersService.createUser(new CartUser(null,
+                                                $scope.newUser.firstname,
+                                                $scope.newUser.lastname,
+                                                $scope.newUser.username,
+                                                $scope.newUser.password,
+                                                false))
+                .then(getRegisteredUser);
+        }
+
+        function getRegisteredUser()
+        {
+            UsersService.authenticate($scope.newUser.username, $scope.newUser.password)
                 .then(function (result) {
 
                     console.log(result.success);
                     if(result.success) {
                         $state.go('shoppingcart.home', {cartUser: result.cartUser});
-                    }else{
-                        $scope.error = "The username and password you entered do not match.";
                     }
-
-                });*/
+                });
         }
 
 
 
         $scope.register = register;
-
+        resetForm();
     })
 ;

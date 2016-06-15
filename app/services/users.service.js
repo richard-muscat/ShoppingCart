@@ -14,17 +14,7 @@ angular.module('shoppingcart.service.users',[])
             return $http.get(url).then(transformResponse);
         };
 
-        var createProduct = function(product) {
-            return $http.post(url,product);
-        };
 
-        var updateProduct = function(product) {
-            return $http.put(url + '/' + product.id,product);
-        };
-
-        var deleteProduct = function(product) {
-            return $http.delete(url + '/' + product.id);
-        };
 
 
 
@@ -38,6 +28,13 @@ angular.module('shoppingcart.service.users',[])
             }).then(transformResponse);
         };
 
+
+        var createUser = function(cartUser){
+          //  var params = {firstname: cartUser.firstname, lastname: cartUser.lastname, username: cartUser.username, password:cartUser.password, isAdmin:cartUser.isAdmin};
+            return $http.post(url,cartUser);
+        }
+
+
         function transformResponse(response)
         {
             if (response.data.length <= 0) {
@@ -47,15 +44,14 @@ angular.module('shoppingcart.service.users',[])
                 var cartUser = new CartUser(loggedInUser.id, loggedInUser.firstname, loggedInUser.lastname, loggedInUser.username, null, loggedInUser.isAdmin);
                 console.log("returning login response object");
                 return new LoginResponse(true, cartUser);
-
-
             }
 
         }
 
 
         return {
-            authenticate: authenticate
+            authenticate: authenticate,
+            createUser: createUser
         };
     });
 
