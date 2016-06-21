@@ -1,13 +1,14 @@
 
 
 <div class="row" >
-    <div class="col-sm-6 col-lg-6 col-md-6" ng-repeat="product in products">
+    <div class="col-sm-6 col-lg-6 col-md-6" ng-repeat="product in products | filter:{categoryId:getCurrentCategoryId()}">
     <div class="thumbnail">
         <div class="caption">
             <h4 class="pull-right">$24.99</h4>
             <h4><a href="#">{{product.name}}</a>
             </h4>
             <p>Some kind of description goes in here</p>
+            <button type = "button"class="btn btn-link" ng-click="addToCart(product)">Add to Cart</button>
         </div>
     </div>
 </div>

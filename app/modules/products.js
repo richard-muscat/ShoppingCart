@@ -2,7 +2,8 @@
  * Created by Richard on 28/05/2016.
  */
 "use strict";
-angular.module('shoppingcart.categories.products', [
+angular.module('shoppingcart.home.categories.products', [
+        'shoppingcart.service.categories',
         'shoppingcart.service.products',
         'shoppingcart.categories.products.create',
         'shoppingcart.categories.products.edit'
@@ -12,7 +13,7 @@ angular.module('shoppingcart.categories.products', [
         $stateProvider
             .state('shoppingcart.home.categories.products', {
                 //url: 'categories/:category',
-                url: '/prods',
+                url: 'categories/:category',
                 views: {
                     'products@': {
                         controller: 'ProductsController',
@@ -25,8 +26,21 @@ angular.module('shoppingcart.categories.products', [
             });
     })
 
-    .controller('ProductsController', function ProductsController($scope, ProductsService, $stateParams) {
+    .controller('ProductsController', function ProductsController($scope, ProductsService, CategoriesService,OrdersService, $state,$stateParams) {
         console.log($stateParams.updated);
+
+        CategoriesService.setCurrentCategory();
+
+        if ($stateParams.category) {
+            CategoriesService.getCategoryByName($stateParams.category).then(function (category) {
+                console.log(category.name);
+                CategoriesService.setCurrentCategory(category);
+            })
+        }
+        $scope.getCurrentCategory = CategoriesService.getCurrentCategory;
+        $scope.getCurrentCategoryName = CategoriesService.getCurrentCategoryName;
+        $scope.getCurrentCategoryId = CategoriesService.getCurrentCategoryId;
+
         getAll();
         if ($stateParams.updated) {
             console.log("entered if statement");
@@ -47,6 +61,18 @@ angular.module('shoppingcart.categories.products', [
             .then(getAll());
         }
 
+        function addToCart(product){
+            if($stateParams.cartUser===null)
+            {
+                $state.go('shoppingcart.login');
+            }
+            else
+            {
+                OrdersService.updateCart(product,$stateParams.cartUser);
+            }
+        }
+
+        $scope.addToCart = addToCart;
         $scope.deleteProduct = deleteProduct;
         $scope.getAll = getAll;
     })

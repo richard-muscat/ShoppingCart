@@ -35,8 +35,7 @@ angular.module('shoppingcart.service.users',[])
         }
 
 
-        function transformResponse(response)
-        {
+        function transformResponse(response) {
             if (response.data.length <= 0) {
                 return new LoginResponse(false, null);
             } else {

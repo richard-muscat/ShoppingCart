@@ -8,7 +8,8 @@ angular.module('shoppingcart',[
     'shoppingcart.home',
     'shoppingcart.login',
     'shoppingcart.register',
-    'shoppingcart.categories.products',
+    'shoppingcart.home.categories',
+    'shoppingcart.home.categories.products',
     'shoppingcart.categories.products.create',
     'shoppingcart.categories.products.edit'
 

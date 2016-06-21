@@ -12,21 +12,29 @@ angular.module('shoppingcart.home.categories', [
             .state('shoppingcart.home.categories', {
                 url: '/',
                 views: {
-                    'products@': {
+                    'categories@': {
                         controller: 'CategoriesController',
                         templateUrl: 'categories/categories.template.html'
+                    },
+                    'products@': {
+                        controller: 'ProductsController',
+                        templateUrl: 'products/products.template.html'
                     }
-                },
-                params: {
-                    updated: false
                 }
             });
     })
-    .controller('CategoriesController', function ProductsController($scope, ProductsService, $stateParams) {
+    .controller('CategoriesController', function CategoriesController($scope, CategoriesService, $stateParams) {
 
 
+        CategoriesService.getAll()
+            .then(function (result) {
+                $scope.categories = result;
+            });
 
+        function isCurrentCategory(category) {
+            return category.name === $scope.getCurrentCategoryName();
+        }
 
-
-
+        $scope.getCurrentCategoryName = CategoriesService.getCurrentCategoryName;
+        $scope.isCurrentCategory = isCurrentCategory;
     });

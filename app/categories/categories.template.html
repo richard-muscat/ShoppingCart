@@ -1,0 +1,4 @@
+<p class="lead">Product Categories</p>
+<div class="list-group" ng-repeat="category in categories" ng-class="{'active':isCurrentCategory(category)}">
+    <a ui-sref="shoppingcart.home.categories.products({category: category.name})" class="list-group-item">{{category.name}}</a>
+</div>

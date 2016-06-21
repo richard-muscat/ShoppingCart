@@ -29,11 +29,17 @@
     <script src="modules/products.create.js"></script>
     <script src="modules/products.edit.js"></script>
     <script src="modules/products.js"></script>
+    <script src="modules/categories.js"></script>
+    <script src="models/category.js"></script>
     <script src="models/product.js"></script>
     <script src="models/cartUser.js"></script>
     <script src="models/loginResponse.js"></script>
+    <script src="models/order.js"></script>
+    <script src="models/orderDetail.js"></script>
     <script src="services/users.service.js"></script>
     <script src="services/products.service.js"></script>
+    <script src="services/categories.service.js"></script>
+    <script src="services/orders.service.js"></script>
 
     <!-- endinject -->
 </head>
@@ -79,25 +85,13 @@
 
     <div class="row">
 
-        <div class="col-md-3">
-            <p class="lead">Product Categories</p>
-            <div class="list-group">
-                <a href="#" class="list-group-item">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
-            </div>
-        </div>
+        <div class="col-md-3" ui-view="categories"></div>
 
         <div class="col-md-6" ui-view="products"></div>
 
-        <div class="col-md-3">
-            <p class="lead">Cart</p>
-            <div class="list-group">
-                <a href="#" class="list-group-item">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
-            </div>
-        </div>
+        <div class="col-md-3" ui-view="cart"></div>
+
+
 
 
     </div>
