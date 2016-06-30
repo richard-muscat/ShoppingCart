@@ -44,7 +44,7 @@ angular.module('shoppingcart.login', [
 
                   console.log(result.success);
                   if(result.success) {
-                        $state.go('shoppingcart.home', {cartUser: result.cartUser});
+                        $state.go('shoppingcart.home');
                     }else{
                       $scope.error = "The username and password you entered do not match.";
                   }

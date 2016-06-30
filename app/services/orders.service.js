@@ -7,8 +7,9 @@ angular.module('shoppingcart.service.orders', ['shoppingcart.service.products'])
         var baseUrl = 'http://localhost:3000/';
         var orderUrl = baseUrl + 'orders';
         var orderDetailUrl = baseUrl + 'orderdetail';
-        var currentOrder;
-        var currentOrderDetail = [];
+        var currentOrder = null;
+        var currentOrderDetails = null;
+
 
 
         //Order Services
@@ -48,9 +49,11 @@ angular.module('shoppingcart.service.orders', ['shoppingcart.service.products'])
                 return null;
             } else {
                 var responseOrder = response.data[0];
-                return new Order(responseOrder.id, responseOrder.userId, responseOrder.status);
+                currentOrder = new Order(responseOrder.id, responseOrder.userId, responseOrder.status)
+                return currentOrder;
             }
         }
+
 
 
         //Order Details Services
@@ -64,7 +67,8 @@ angular.module('shoppingcart.service.orders', ['shoppingcart.service.products'])
         };
 
         var updateOrderDetail = function (orderdetail) {
-            return $http.put(orderDetailUrl + '/' + orderdetail.id, orderdetail);
+            //(currentOrder.id,product.id,1)
+            return $http.put(orderDetailUrl + '/' + orderdetail.id, new OrderDetail(orderdetail.id,orderdetail.orderId,orderdetail.productId,orderdetail.quantity));
         };
 
         var deleteOrderDetail = function (orderDetailId) {
@@ -72,27 +76,80 @@ angular.module('shoppingcart.service.orders', ['shoppingcart.service.products'])
         };
 
         var getOrderDetails = function (orderId) {
-            return $http.get(orderUrl + '/' + orderId + '/orderdetail').then(processGetOrderDetailsResponse);
+            return $http.get(orderUrl + '/' + orderId + '/orderdetail/?_expand=product').then(processGetOrderDetailsResponse);
         };
 
         function processGetOrderDetailsResponse(response) {
             var orderDetails = [];
             angular.forEach(response.data, function (value, key) {
-                ProductsService.getProductById(value['productId'])
-                    .then(function(result){
-                        var orderDetail = new OrderDetail(value['id'], value['orderId'], value['productId'], value['quantity'],result);
-                        orderDetails.push(orderDetail);
-                    });
-
+                var jsonProduct = value['product'];
+                var product = new Product(jsonProduct.id, jsonProduct.categoryId, jsonProduct.name);
+                var orderDetail = new OrderDetail(value['id'], value['orderId'], value['productId'], value['quantity'],product);
+                orderDetails.push(orderDetail);
             });
-            return orderDetails;
+            currentOrderDetails =  orderDetails;
+            getItemCount();
+            return currentOrderDetails;
         }
 
 
         //General
         var updateCart = function (product, cartUser) {
+            if(currentOrder === null)
+            {
+                createOrderForUser(cartUser.id).then(getOrderForUser(cartUser.id).then(addToCart(product)));
+            }
+            else
+            {
+                (addToCart(product));
+            }
+        };
+
+        function addToCart(product)
+        {
+            var notFound = true;
+            currentOrderDetails.forEach(function(orderDetail){
+                if(orderDetail.productId === product.id)
+                {
+                    orderDetail.quantity++;
+                    notFound = false;
+                    updateOrderDetail(orderDetail);
+                }
+            });
+            if(notFound)
+            {
+                createOrderDetail(currentOrder.id,product.id,1);
+            }
+            //return getOrderDetails(currentOrder.id);
+        }
+
+        var getCurrentOrder = function(){
+            return currentOrder;
+        };
+
+        var getCurrentOrderDetails = function(){
+            return currentOrderDetails;
+        };
+
+        var resetCurrentOrder = function(){
+          currentOrder = null;
+          currentOrderDetails = [];
 
         };
+        function getItemCount(){
+            if(currentOrderDetails!==null){
+                var total =0;
+                currentOrderDetails.forEach(function(orderDetail){
+                    total+=orderDetail.quantity;
+                });
+                return total;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
 
 
         return {
@@ -105,7 +162,12 @@ angular.module('shoppingcart.service.orders', ['shoppingcart.service.products'])
             insertOrderDetail: insertOrderDetail,
             updateOrderDetail: updateOrderDetail,
             deleteOrderDetail: deleteOrderDetail,
-            getOrderDetails: getOrderDetails
+            getOrderDetails: getOrderDetails,
+            getCurrentOrder: getCurrentOrder,
+            getCurrentOrderDetails: getCurrentOrderDetails,
+            resetCurrentOrder: resetCurrentOrder,
+            getItemCount : getItemCount,
+            updateCart:updateCart
         };
 
 

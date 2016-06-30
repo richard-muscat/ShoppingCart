@@ -1,12 +1,7 @@
 /**
  * Created by Richard on 14/06/2016.
  */
-/**
- * Created by Richard on 14/06/2016.
- */
-/**
- * Created by Richard on 08/06/2016.
- */
+
 "use strict";
 angular.module('shoppingcart.register', [
         'shoppingcart.service.users'
@@ -15,16 +10,7 @@ angular.module('shoppingcart.register', [
         $stateProvider
             .state('shoppingcart.register', {
                 url: '/register',
-                views: {  /*
-                 'navlogin@': {
-                 controller: 'NavController',
-                 templateUrl: 'users/login.template.html'
-                 },
-
-                 'categories@': {
-                 controller: 'CategoriesController',
-                 templateUrl: 'categories/categories.template.html'
-                 },*/
+                views: {
                     'products@': {
                         controller: 'RegisterController',
                         templateUrl: 'users/cartUser.template.html'

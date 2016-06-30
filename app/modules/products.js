@@ -5,6 +5,7 @@
 angular.module('shoppingcart.home.categories.products', [
         'shoppingcart.service.categories',
         'shoppingcart.service.products',
+        'shoppingcart.service.orders',
         'shoppingcart.categories.products.create',
         'shoppingcart.categories.products.edit'
     ])
@@ -14,6 +15,9 @@ angular.module('shoppingcart.home.categories.products', [
             .state('shoppingcart.home.categories.products', {
                 //url: 'categories/:category',
                 url: 'categories/:category',
+                data:{
+                    orderQuantity:""
+                },
                 views: {
                     'products@': {
                         controller: 'ProductsController',
@@ -26,7 +30,7 @@ angular.module('shoppingcart.home.categories.products', [
             });
     })
 
-    .controller('ProductsController', function ProductsController($scope, ProductsService, CategoriesService,OrdersService, $state,$stateParams) {
+    .controller('ProductsController', function ProductsController($scope, ProductsService, CategoriesService,OrdersService,UsersService, $state,$stateParams) {
         console.log($stateParams.updated);
 
         CategoriesService.setCurrentCategory();
@@ -62,13 +66,17 @@ angular.module('shoppingcart.home.categories.products', [
         }
 
         function addToCart(product){
-            if($stateParams.cartUser===null)
+            var currentUser = UsersService.getCurrentUser();
+            if(currentUser===null)
             {
                 $state.go('shoppingcart.login');
             }
             else
             {
-                OrdersService.updateCart(product,$stateParams.cartUser);
+                OrdersService.updateCart(product,currentUser);
+                $state.go('shoppingcart.home',{addToCart:true});
+               // var totalQuantity = OrderService.getItemCount();
+
             }
         }
 

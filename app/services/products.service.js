@@ -10,8 +10,13 @@ angular.module('shoppingcart.service.products', [])
 
         var getAll = function () {
 
-            return $http.get(url).then(transformResponse);
+            return $http.get(url,{cache: true}).then(transformResponse);
         };
+
+        function deleteAllProductsResponseFromCache() {
+            var httpCache = $cacheFactory.get('$http');
+            httpCache.remove(url);
+        }
 
         var getProductById = function(productId){
             return $http.get(url+'/'+ productId)
@@ -19,14 +24,17 @@ angular.module('shoppingcart.service.products', [])
         };
 
         var createProduct = function (product) {
+            deleteAllProductsResponseFromCache();
             return $http.post(url, product);
         };
 
         var updateProduct = function (product) {
+            deleteAllProductsResponseFromCache();
             return $http.put(url + '/' + product.id, product);
         };
 
         var deleteProduct = function (product) {
+            deleteAllProductsResponseFromCache();
             return $http.delete(url + '/' + product.id);
         };
 

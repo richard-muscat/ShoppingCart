@@ -1,6 +1,18 @@
 <div class="panel panel-default">
 <p class="lead" > Cart:</p>
-<div class="list-group"  ng-repeat="orderDetail in orderDetails">
-    <p> {{orderDetail.product.name}}</p>
-</div>
+    <table style="width:100%">
+        <tr>
+            <td><h4>Product</h4></td>
+            <td><h4>Quantity</h4></td>
+            <td><h4>Price</h4></td>
+        </tr>
+
+    <tr ng-repeat="orderDetail in orderDetails">
+        <td>{{orderDetail.product.name}}</td>
+        <td>{{orderDetail.quantity}}</td>
+        <td></td>
+    </tr>
+
+
+        </table>
 </div>

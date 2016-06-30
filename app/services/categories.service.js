@@ -10,18 +10,26 @@ angular.module('shoppingcart.service.categories', [])
 
         var getAll = function () {
 
-            return $http.get(url).then(transformResponse);
+            return $http.get(url,{cache:true}).then(transformResponse);
         };
 
+        function deleteAllCategoriesFromResponseCache(){
+            var httpCache = $cacheFactory.get('$http');
+            httpCache.remove(url);
+        }
+
         var createCategory = function (category) {
+            deleteAllCategoriesFromResponseCache()
             return $http.post(url, category);
         };
 
         var updateCategory = function (category) {
+            deleteAllCategoriesFromResponseCache();
             return $http.put(url + '/' + category.id, category);
         };
 
         var deleteCategory = function (category) {
+            deleteAllCategoriesFromResponseCache();
             return $http.delete(url + '/' + category.id);
         };
 

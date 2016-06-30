@@ -8,6 +8,7 @@ angular.module('shoppingcart.service.users',[])
 
         var baseUrl = 'http://localhost:3000/';
         var url = baseUrl + 'users';
+        var currentUser = null;
 
         var getAll = function() {
 
@@ -40,17 +41,26 @@ angular.module('shoppingcart.service.users',[])
                 return new LoginResponse(false, null);
             } else {
                 var loggedInUser = response.data[0];
-                var cartUser = new CartUser(loggedInUser.id, loggedInUser.firstname, loggedInUser.lastname, loggedInUser.username, null, loggedInUser.isAdmin);
+                currentUser = new CartUser(loggedInUser.id, loggedInUser.firstname, loggedInUser.lastname, loggedInUser.username, null, loggedInUser.isAdmin);
                 console.log("returning login response object");
-                return new LoginResponse(true, cartUser);
+                return new LoginResponse(true, currentUser);
             }
 
+        }
+        var getCurrentUser = function(){
+            return currentUser;
+        }
+
+        var resetCurrentUser = function() {
+            currentUser = null;
         }
 
 
         return {
             authenticate: authenticate,
-            createUser: createUser
+            createUser: createUser,
+            getCurrentUser: getCurrentUser,
+            resetCurrentUser: resetCurrentUser
         };
     });
 
